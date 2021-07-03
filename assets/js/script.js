@@ -2,12 +2,12 @@
 var generateBtn = document.querySelector("#generate");
 
 // Pool of possible characters to be used.
-const alpha = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
+const lowers = "abcdefghijklmnopqrstuvwxyz";
+const uppers = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const numbers = "0123456789";
 const specials = "!#$%&()*+,-./:;<=>?@[]^_`{|}~";
 
 function generatePassword() {
-
   // Prompt for desired length.
   let lengthPrompt = prompt(
     "Enter the desired length of the password between 8 and 128 charaters:"
@@ -23,23 +23,29 @@ function generatePassword() {
     return generatePassword();
   }
 
-  // Prompts for numbers &| specials to be added to generated password.
-  addNumbers = confirm("Do you want to add numbers?  OK:Yes  /  CANCEL:No");
-  addSpecials = confirm("Do you want to add specials?  OK:Yes  /  CANCEL:No");
+  // Set empty variable.
+  let allPassword = "";
 
-  // Combining of strings from ansers on lines 27 & 28.
-  if (addNumbers && addSpecials) {
-    allPassword = alpha.concat(numbers, specials);
-    console.log(allPassword);
-  } else if (addNumbers) {
-    allPassword = alpha.concat(numbers);
-    console.log(allPassword);
-  } else if (addSpecials) {
-    allPassword = alpha.concat(specials);
-    console.log(allPassword);
-  } else {
-    allPassword = alpha;
-    console.log(allPassword);
+  // Prompts for lower case letters, upper case letters, numbers, &| specials to be added to generated password.
+  if (confirm("Do you want to add lower case letters?    OK:Yes / CANCEL:No")) {
+    allPassword = allPassword.concat(lowers);
+  }
+
+  if (confirm("Do you want to add upper case letters?    OK:Yes / CANCEL:No")) {
+    allPassword = allPassword.concat(uppers);
+  }
+
+  if (confirm("Do you want to add numbers?    OK:Yes / CANCEL:No")) {
+    allPassword = allPassword.concat(numbers);
+  }
+
+  if (confirm("Do you want to add specials?    OK:Yes / CANCEL:No")) {
+    allPassword = allPassword.concat(specials);
+  }
+
+  // Checks if any character types were selected.
+  if (allPassword === "") {
+    return generatePassword();
   }
 
   // Set empty variable for the for loop.
